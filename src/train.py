@@ -56,13 +56,14 @@ def train(config: TrainConfig):
 
     for epoch in range(config.epochs):
         model.train()
-        hidden = model.init_hidden(batch_size=config.batch_size, device=device)
 
         epoch_loss = 0.0
 
         for batch_idx, (inputs, targets) in tqdm(enumerate(dataloader), total=len(dataloader)):
             inputs = inputs.to(device)
             targets = targets.to(device)
+
+            hidden = model.init_hidden(batch_size=config.batch_size, device=device)
 
             logits, hidden = model(inputs, hidden)
             hidden = hidden.detach()
