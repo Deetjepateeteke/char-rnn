@@ -1,0 +1,13 @@
+{
+    "data_path": "data/shakespeare.txt",
+    "seq_length": 50,
+
+    "hidden_size": 16,
+    "dropout": 0.3,
+    
+    "epochs": 10,
+    "batch_size": 32,
+    "lr": 0.1,
+    "log_every": 1000,
+    "save_every": 1
+}
