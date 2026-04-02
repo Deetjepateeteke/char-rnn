@@ -24,7 +24,7 @@ def train(config: TrainConfig):
         text = " ".join(f.readlines()).lower()
 
     dataset = CharDataSet(text, config.seq_length)
-    dataloader = DataLoader(dataset, batch_size=config.batch_size, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=config.batch_size, shuffle=True, drop_last=True)
 
     print(f"Vocab size: {dataset.vocab_size}")
     print(f"Dataset size: {len(dataset):,} sequences")
