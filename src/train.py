@@ -24,7 +24,7 @@ def train(config: TrainConfig):
         text = " ".join(f.readlines()).lower()
 
     dataset = CharDataSet(text, config.seq_length)
-    dataloader = DataLoader(dataset, batch_size=config.batch_size, shuffle=True, drop_last=True)
+    dataloader = DataLoader(dataset, batch_size=config.batch_size, shuffle=False, drop_last=True)
 
     print(f"Vocab size: {dataset.vocab_size}")
     print(f"Dataset size: {len(dataset):,} sequences")
@@ -59,11 +59,11 @@ def train(config: TrainConfig):
 
         epoch_loss = 0.0
 
+        hidden = model.init_hidden(batch_size=config.batch_size, device=device)
+
         for batch_idx, (inputs, targets) in tqdm(enumerate(dataloader), total=len(dataloader)):
             inputs = inputs.to(device)
             targets = targets.to(device)
-
-            hidden = model.init_hidden(batch_size=config.batch_size, device=device)
 
             logits, hidden = model(inputs, hidden)
             hidden = hidden.detach()
