@@ -109,7 +109,7 @@ def train(config: TrainConfig):
                 char2idx=dataset.char2idx,
                 idx2char=dataset.idx2char,
                 config=config,
-                path=f"checkpoints/epoch{epoch:03}.pt"
+                path=config.checkpoint_dir / f"epoch_{epoch:03}.pt"
             )
 
     # --- Final save and plot ---
@@ -121,7 +121,7 @@ def train(config: TrainConfig):
         char2idx=dataset.char2idx,
         idx2char=dataset.idx2char,
         config=config,
-        path=f"checkpoints/final.pt"
+        path=config.checkpoint_dir / "final.pt"
     )
 
     plot_losses(epoch_loss_history, xlabel="Epochs")

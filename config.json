@@ -9,5 +9,6 @@
     "batch_size": 32,
     "lr": 0.1,
     "log_every": 1000,
-    "save_every": 1
+    "save_every": 1,
+    "checkpoint_dir": "checkpoints"
 }
