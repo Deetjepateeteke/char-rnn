@@ -1,5 +1,4 @@
 import torch
-import torch.nn.functional as F
 from torch.utils.data import Dataset
 
 
@@ -30,7 +29,7 @@ def decode(indices: list[int], idx2char: dict) -> str:
     return "".join([idx2char[idx] for idx in indices])
 
 
-class CharDataSet(Dataset):
+class CharDataset(Dataset):
     """
     Sliding window dataset over an encoded character sequence.
 
@@ -45,7 +44,6 @@ class CharDataSet(Dataset):
         self.vocab_size = len(self.char2idx)
 
         self.data = torch.tensor(encode(text, self.char2idx), dtype=torch.long)
-        self.data = F.one_hot(self.data, num_classes=self.vocab_size).type(torch.float32)
 
     def __len__(self) -> int:
         """ Return the amount of batches, not the amount of chars. """
