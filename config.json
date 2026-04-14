@@ -4,9 +4,9 @@
     "hidden_size": 128,
     "num_layers": 1,
     "dropout": 0.1,
-    "epochs": 4,
+    "epochs": 5,
     "batch_size": 32,
     "lr": 0.001,
-    "save_every": 1,
+    "save_every": 2000,
     "checkpoint_dir": "checkpoints"
 }

@@ -4,7 +4,7 @@ import torch
 from tqdm.auto import tqdm
 
 from src.dataset import decode, encode
-from src.utils import load_model
+from src.utils.checkpointing import load_model
 
 
 def generate(model_path: str,

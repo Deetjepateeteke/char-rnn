@@ -1,9 +1,7 @@
 import torch
 import torch.nn as nn
-import matplotlib.pyplot as plt
-import numpy as np
 
-from .model import CharRNN
+from src.model import CharRNN
 
 
 def save_checkpoint(model, optimizer, epoch, loss, accuracy, char2idx, idx2char, config, path):
@@ -34,6 +32,8 @@ def load_model(model_path: str) -> tuple[nn.Module, torch.optim.Optimizer, dict]
             - The model's optimizer
             - The model's metadata
     """
+    import pathlib
+    pathlib.PosixPath = pathlib.WindowsPath
     checkpoint = torch.load(model_path, weights_only=False)
 
     char2idx, idx2char = checkpoint["char2idx"], checkpoint["idx2char"]
@@ -55,13 +55,4 @@ def load_model(model_path: str) -> tuple[nn.Module, torch.optim.Optimizer, dict]
     }
 
     print(f"Loaded model from '{model_path}'")
-
     return model, optimizer, metadata
-
-
-def plot_losses(loss_history, title: str = "Loss History"):
-    plt.plot(np.arange(len(loss_history)), loss_history)
-    plt.title(title)
-    plt.xlabel("Epochs")
-    plt.ylabel("Loss")
-    plt.show()
