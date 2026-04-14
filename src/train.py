@@ -37,7 +37,8 @@ def train(config: TrainConfig):
         train_dataset,
         batch_size=config.batch_size,
         shuffle=False,
-        drop_last=True, pin_memory=True
+        drop_last=True,
+        pin_memory=True
     )
     val_dataloader = DataLoader(
         val_dataset,
@@ -60,7 +61,7 @@ def train(config: TrainConfig):
         device=device
     ).to(device)
 
-    dummy_input = torch.zeros(config.batch_size, config.seq_len, dtype=torch.int64)
+    dummy_input = torch.zeros(config.batch_size, config.seq_len, dtype=torch.int64).to(device)
     dummy_hidden = model.init_hidden(batch_size=config.batch_size, device=device)
     train_writer.add_graph(model, (dummy_input, dummy_hidden))
 
@@ -88,8 +89,8 @@ def train(config: TrainConfig):
         last_update = float("-inf")
         pbar = tqdm(enumerate(train_dataloader), total=len(train_dataloader), desc=f"Epoch {epoch+1}")
         for batch_idx, (inputs, targets) in pbar:
-            inputs = inputs.to(device)
-            targets = targets.to(device)
+            inputs = inputs.to(device, non_blocking=True)
+            targets = targets.to(device, non_blocking=True)
 
             with autocast(device):
             # logits: (batch_size, seq_len, vocab_size)
