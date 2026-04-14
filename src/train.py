@@ -73,7 +73,7 @@ def train(config: TrainConfig):
     optimizer = torch.optim.Adam(params=model.parameters(), lr=config.lr)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, "min", factor=0.1, patience=2)
 
-    accuracy_fn = Accuracy(task="multiclass", num_classes=model.vocab_size)
+    accuracy_fn = Accuracy(task="multiclass", num_classes=model.vocab_size).to(device)
 
     scaler = GradScaler(device)
 
