@@ -21,7 +21,8 @@ class CharRNN(nn.Module):
                  vocab_size: int,
                  hidden_size: int,
                  num_layers: int,
-                 dropout: float = 0.0):
+                 device: torch.device,
+                 dropout: float = 0.0,):
         super().__init__()
 
         self.vocab_size = vocab_size
@@ -35,7 +36,8 @@ class CharRNN(nn.Module):
             num_layers=num_layers,
             nonlinearity="tanh",
             batch_first=True,
-            dropout=dropout if num_layers > 1 else 0.0
+            dropout=dropout if num_layers > 1 else 0.0,
+            device=device
         )
 
         self.dropout = nn.Dropout(dropout)

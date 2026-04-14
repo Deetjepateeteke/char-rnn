@@ -56,7 +56,8 @@ def train(config: TrainConfig):
         vocab_size=train_dataset.vocab_size,
         hidden_size=config.hidden_size,
         num_layers=config.num_layers,
-        dropout=config.dropout
+        dropout=config.dropout,
+        device=device
     ).to(device)
 
     dummy_input = torch.zeros(config.batch_size, config.seq_len, dtype=torch.int64)
